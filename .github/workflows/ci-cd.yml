@@ -14,7 +14,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+
+    - name: Debug Secrets
+      run: |
+        echo "DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}"
+        echo "DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}"
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2
@@ -30,23 +35,3 @@ jobs:
 
     - name: Push Docker image
       run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-ci-cd-project:latest
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_TOKEN }}
-
-    - name: Pull Docker image
-      run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/my-ci-cd-project:latest
-
-    - name: Run Docker container
-      run: docker run -d -p 3000:3000 ${{ secrets.DOCKER_HUB_USERNAME }}/my-ci-cd-project:latest
