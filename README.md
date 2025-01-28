@@ -178,5 +178,3 @@ Let's start by creating a simple Node.js application.
 
 ### Conclusion
 You now have a basic CI/CD pipeline set up using Docker Desktop, GitHub Actions, and Docker Hub. This pipeline automates the process of building, testing, and deploying your Dockerized application. You can further enhance this setup by adding more stages, such as running tests, linting, or deploying to different environments.
-
-Feel free to ask if you have any questions or need further assistance!
